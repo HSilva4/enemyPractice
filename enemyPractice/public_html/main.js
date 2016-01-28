@@ -148,7 +148,7 @@ Goblin.prototype.update = function () {
   this.wright = false;
   //if the goblin is within the viewing circle
   if (this.seesHero) {
-    console.log("goblin sees hero");
+    console.log("goblin sees heroo");
     //if the goblin and hero are on the same y axis
     if (this.walkTowardY === this.y) {
       console.log("same y axis");
