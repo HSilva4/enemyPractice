@@ -69,8 +69,33 @@ Background.prototype.draw = function (ctx) {
 //    Entity.prototype.draw.call(this);
 }
 
+function BoundingBox(x, y, width, height) {
+  this.x = x;
+  this.y = y;
+  this.width = width;
+  this.height = height;
+  
+  this.left = x;
+  this.top = y;
+  this.right = this.left + width;
+  this.bottom = this.top + height;
+}
+
+BoundingBox.prototype.collide = function (other) {
+  if (this.right > other.left && this.left < other.right && this.top < other.bottom && this.bottom > other.top) {
+    return true;
+  }
+  return false;
+  
+}
+
+
+
+
+
+
 function Goblin(game) {
-      this.animation = new Animation(ASSET_MANAGER.getAsset("enemyPractice/public_html/img/sheet2.png"), 94, 128, 33.3, 32, 0.02, 1, true, false);
+    this.animation = new Animation(ASSET_MANAGER.getAsset("enemyPractice/public_html/img/sheet2.png"), 94, 128, 33.3, 32, 0.02, 1, true, false);
     
     this.forwardAnimation = new Animation(ASSET_MANAGER.getAsset("enemyPractice/public_html/img/sheet2.png"), 94, 128, 33.3, 32, 0.2, 3, true, false);
     this.backwardAnimation = new Animation(ASSET_MANAGER.getAsset("enemyPractice/public_html/img/sheet2.png"), 94.5, 224, 33.3, 32, 0.2, 3, true, false);
@@ -86,6 +111,10 @@ function Goblin(game) {
     this.ground = 400;
     this.x = 200;
     this.y = 100;
+    
+    this.boxes = true;
+    this.boundingBox = new BoundingBox(this.x, this.y, this.animation.frameWidth, this.animation.frameHeight);
+    
     Entity.call(this, game, this.x, this.y); 
 }
 
@@ -93,7 +122,8 @@ Goblin.prototype = new Entity();
 Goblin.prototype.constructor = Goblin;
 
 Goblin.prototype.update = function () {
-    
+    this.boundingBox = new BoundingBox(this.x, this.y, this.animation.frameWidth, this.animation.frameHeight);
+    Entity.prototype.update.call(this);
 }
 
 Goblin.prototype.draw = function (ctx) {
@@ -113,6 +143,11 @@ Goblin.prototype.draw = function (ctx) {
 //    else {
 //        this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
 //    }
+    if (this.boxes) {
+      ctx.strokeStyle = "red";
+      ctx.strokeRect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.width, this.boundingBox.height);
+    }
+
     this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
     Entity.prototype.draw.call(this);
 }
@@ -136,6 +171,10 @@ function Hero(game) {
     this.ground = 400;
     this.x = 400;
     this.y = 400;
+    
+    this.boxes = true;
+    this.boundingBox = new BoundingBox(this.x, this.y, this.animation.frameWidth, this.animation.frameHeight);
+    
     Entity.call(this, game, this.x, this.y);
 }
 
@@ -167,7 +206,7 @@ Hero.prototype.update = function () {
       this.x = this.x + 1.5;
     }
     else this.wright = false;
-    
+    this.boundingBox = new BoundingBox(this.x, this.y, this.animation.frameWidth, this.animation.frameHeight);
     Entity.prototype.update.call(this);
 }
 
@@ -187,6 +226,10 @@ Hero.prototype.draw = function (ctx) {
     }
     else {
         this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
+    }
+    if (this.boxes) {
+      ctx.strokeStyle = "red";
+      ctx.strokeRect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.width, this.boundingBox.height);
     }
     Entity.prototype.draw.call(this);
 }
