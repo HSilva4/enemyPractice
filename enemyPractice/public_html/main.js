@@ -179,6 +179,8 @@ function Hero(game) {
     this.boxes = true;
     this.boundingBox = new BoundingBox(this.x + 5, this.y, this.animation.frameWidth + 8, this.animation.frameHeight + 15);
     
+    this.boundingCircle = new BoundingCircle(this.boundingBox.width / 2, this.boundingBox.height / 2, 80);
+    
     Entity.call(this, game, this.x, this.y);
 }
 
@@ -219,6 +221,7 @@ Hero.prototype.update = function () {
     }
     
     this.boundingBox = new BoundingBox(this.x + 5, this.y, this.animation.frameWidth + 8, this.animation.frameHeight + 15);
+    this.boundingCircle = new BoundingCircle(this.boundingBox.width / 2, this.boundingBox.height / 2, 80);
     Entity.prototype.update.call(this);
 }
 
@@ -242,6 +245,10 @@ Hero.prototype.draw = function (ctx) {
     if (this.boxes) {
       ctx.strokeStyle = "red";
       ctx.strokeRect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.width, this.boundingBox.height);
+      ctx.strokeStyle = "green";
+      ctx.beginPath()
+      ctx.arc(this.boundingCircle.x, this.boundingCircle.y, this.boundingCircle.radius, 0, 2*Math.PI);
+      ctx.stroke();
     }
     Entity.prototype.draw.call(this);
 }
