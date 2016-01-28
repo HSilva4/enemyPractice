@@ -103,6 +103,7 @@ ViewingCircle.prototype.collide = function (other) {
   var distanceC4 = Math.sqrt(((other.right - this.x) * (other.right - this.x)) + ((other.bottom - this.y) * (other.bottom - this.y)));
   console.log(distanceC1 + " " + distanceC2 + " " + distanceC3 + " " + distanceC4);
   if (distanceC1 < this.radius || distanceC2 < this.radius || distanceC3 < this.radius || distanceC4 < this.radius) {
+    alert("hello");
     return true;
   }
   return false;
