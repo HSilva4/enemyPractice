@@ -290,7 +290,12 @@ Hero.prototype.update = function () {
       var enemy = this.game.enemies[i];
       if(this.boundingBox.collide(enemy.boundingBox)) {
         this.removeFromWorld = true;
-        
+        enemy.seesHero = false;
+        if (enemy.x !== enemy.startingX && enemy.y !== enemy.startingY) {
+          enemy.walkTowardX = enemy.startingX;
+          enemy.walkTowardY = enemy.startingY;
+          enemy.atStarting = false;
+        }
       }
       else if(this.viewingCircle.collide(enemy.boundingBox)) {
         enemy.seesHero = true;
