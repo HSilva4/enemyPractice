@@ -148,50 +148,46 @@ Goblin.prototype.update = function () {
   this.wright = false;
   //if the goblin is within the viewing circle
   if (this.seesHero) {
-    console.log("goblin sees heroo");
     //if the goblin and hero are on the same y axis
     if (this.walkTowardY === this.y) {
-      console.log("same y axis");
       //if the hero is to the left of the goblin
       if (this.walkTowardX < this.x) {
         this.wleft = true;
-        this.x = this.x - 1.5;
+        this.x = this.x - 1;
         //if the hero is to the right of the goblin
       } else { 
         this.wright = true;
-        this.x = this.x + 1.5;
+        this.x = this.x + 1;
       }
       //if the hero is below the goblin
     } else if (this.walkTowardY > this.y) {
-      console.log("hero is below goblin");
       this.wforward = true;
       //if the hero and goblin are on the same x axis
       if (this.walkTowardX === this.x) {
-        this.y = this.y + 1.5;
+        this.y = this.y + 1;
         //if the hero is to the left of the goblin
       } else if (this.walkTowardX < this.x) {
-        this.y = this.y + 1;
-        this.x = this.x - 1;
+        this.y = this.y + .75;
+        this.x = this.x - .75;
         //if the hero is to the right of the goblin
       } else {
-        this.y = this.y + 1;
-        this.x = this.x + 1;
+        this.y = this.y + .75;
+        this.x = this.x + .75;
       }
       //if the hero is above the goblin
     } else {
-      console.log("hero is above goblin");
       this.wbackward = true;
       //if the hero and goblin are on the same x axis
       if (this.walkTowardX === this.x) {
-        this.y = this.y - 1.5;
+        this.y = this.y - 1;
         //if the hero is to the left of the goblin
       } else if (this.walkTowardX < this.x) {
-        this.y = this.y - 1;
-        this.x = this.x - 1;
+        this.y = this.y - .75;
+        this.x = this.x - .75;
         //if the hero is to the right of the goblin
       } else {
-        this.y = this.y - 1;
-        this.x = this.x + 1;
+        this.y = this.y - .75;
+        this.x = this.x + .75;
       }
     }
   }
@@ -222,7 +218,6 @@ Goblin.prototype.draw = function (ctx) {
       ctx.strokeRect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.width, this.boundingBox.height);
     }
 
-   // this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
     Entity.prototype.draw.call(this);
 }
 
@@ -286,7 +281,7 @@ Hero.prototype.update = function () {
     for (var i = 0; i < this.game.enemies.length; i++) {
       var enemy = this.game.enemies[i];
       if(this.boundingBox.collide(enemy.boundingBox)) {
-        this.removeFromWorld = true;
+        //what do you do when the hero gets hit
       }
       else if(this.viewingCircle.collide(enemy.boundingBox)) {
         enemy.seesHero = true;
