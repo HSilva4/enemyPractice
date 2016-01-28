@@ -89,7 +89,11 @@ BoundingBox.prototype.collide = function (other) {
   
 }
 
-
+function BoundingCircle(x, y, radius) {
+  this.x = x;
+  this.y = y;
+  this.radius = radius;
+}
 
 
 
@@ -206,6 +210,14 @@ Hero.prototype.update = function () {
       this.x = this.x + 1.5;
     }
     else this.wright = false;
+    
+    for (var i = 0; i < this.game.enemies.length; i++) {
+      var enemy = this.game.enemies[i];
+      if(this.boundingBox.collide(enemy.boundingBox)) {
+        alert("you dead");
+      }
+    }
+    
     this.boundingBox = new BoundingBox(this.x + 5, this.y, this.animation.frameWidth + 8, this.animation.frameHeight + 15);
     Entity.prototype.update.call(this);
 }
@@ -247,9 +259,11 @@ ASSET_MANAGER.downloadAll(function () {
     var ctx = canvas.getContext('2d');
 
     var gameEngine = new GameEngine();
+    var enemies = [];
     var bg = new Background(gameEngine);
     var hero = new Hero(gameEngine);
     var goblin = new Goblin(gameEngine);
+    enemies.push(goblin);
 
     gameEngine.addEntity(bg);
     gameEngine.addEntity(hero);
