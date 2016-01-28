@@ -196,6 +196,10 @@ Goblin.prototype.update = function () {
     }
   } 
   
+  if (this.startingX === this.x && this.startingY === this.y) {
+    this.atStarting = true;
+  } 
+  
   this.boundingBox = new BoundingBox(this.x + 5, this.y, this.animation.frameWidth + 8, this.animation.frameHeight + 15);
   Entity.prototype.update.call(this);
 }
