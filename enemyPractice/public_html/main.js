@@ -113,6 +113,7 @@ Goblin.prototype.draw = function (ctx) {
 //    else {
 //        this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
 //    }
+    this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
     Entity.prototype.draw.call(this);
 }
 
