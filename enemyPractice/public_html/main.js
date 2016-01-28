@@ -214,7 +214,7 @@ Hero.prototype.update = function () {
     for (var i = 0; i < this.game.enemies.length; i++) {
       var enemy = this.game.enemies[i];
       if(this.boundingBox.collide(enemy.boundingBox)) {
-        alert("you dead");
+        this.removeFromWorld = true;
       }
     }
     
