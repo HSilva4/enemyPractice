@@ -101,9 +101,9 @@ ViewingCircle.prototype.collide = function (other) {
   var distanceC2 = Math.sqrt(((other.right - this.x) * (other.right - this.x)) + ((other.top - this.y) * (other.top - this.y)));
   var distanceC3 = Math.sqrt(((other.left - this.x) * (other.left - this.x)) + ((other.bottom - this.y) * (other.bottom - this.y)));
   var distanceC4 = Math.sqrt(((other.right - this.x) * (other.right - this.x)) + ((other.bottom - this.y) * (other.bottom - this.y)));
-  console.log(distanceC1 + " " + distanceC2 + " " + distanceC3 + " " + distanceC4 + " " + this.radius);
+  //console.log(distanceC1 + " " + distanceC2 + " " + distanceC3 + " " + distanceC4 + " " + this.radius);
   if (distanceC1 < this.radius || distanceC2 < this.radius || distanceC3 < this.radius || distanceC4 < this.radius) {
-    alert("hello");
+    //console.log("hello");
     return true;
   }
   return false;
@@ -124,6 +124,8 @@ function Goblin(game) {
     this.wbackward = false;
     this.wleft = false;
     this.wright = false;
+    
+    this.seesHero = false;
     
     this.radius = 100;
     this.ground = 400;
@@ -233,8 +235,11 @@ Hero.prototype.update = function () {
         this.removeFromWorld = true;
       }
       if(this.viewingCircle.collide(enemy.boundingBox)) {
-        alert("hello");
+        enemy.seesHero = true;       
+      } else {
+        enemy.seesHero = false;
       }
+      console.log("sees hero? " + enemy.seesHero);
     }
     
     
