@@ -265,6 +265,7 @@ ASSET_MANAGER.downloadAll(function () {
     var goblin = new Goblin(gameEngine);
     enemies.push(goblin);
 
+    gameEngine.enemies = enemies;
     gameEngine.addEntity(bg);
     gameEngine.addEntity(hero);
     gameEngine.addEntity(goblin);
