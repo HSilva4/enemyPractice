@@ -173,7 +173,7 @@ function Hero(game) {
     this.y = 400;
     
     this.boxes = true;
-    this.boundingBox = new BoundingBox(this.x, this.y, this.animation.frameWidth, this.animation.frameHeight);
+    this.boundingBox = new BoundingBox(this.x, this.y, this.animation.frameWidth * 2, this.animation.frameHeight * 2);
     
     Entity.call(this, game, this.x, this.y);
 }
@@ -206,7 +206,7 @@ Hero.prototype.update = function () {
       this.x = this.x + 1.5;
     }
     else this.wright = false;
-    this.boundingBox = new BoundingBox(this.x, this.y, this.animation.frameWidth, this.animation.frameHeight);
+    this.boundingBox = new BoundingBox(this.x, this.y, this.animation.frameWidth * 2, this.animation.frameHeight * 2);
     Entity.prototype.update.call(this);
 }
 
