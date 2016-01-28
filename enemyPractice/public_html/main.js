@@ -113,7 +113,7 @@ function Goblin(game) {
     this.y = 100;
     
     this.boxes = true;
-    this.boundingBox = new BoundingBox(this.x, this.y, this.animation.frameWidth, this.animation.frameHeight);
+    this.boundingBox = new BoundingBox(this.x + 5, this.y, this.animation.frameWidth + 8, this.animation.frameHeight + 15);
     
     Entity.call(this, game, this.x, this.y); 
 }
@@ -122,7 +122,7 @@ Goblin.prototype = new Entity();
 Goblin.prototype.constructor = Goblin;
 
 Goblin.prototype.update = function () {
-    this.boundingBox = new BoundingBox(this.x, this.y, this.animation.frameWidth, this.animation.frameHeight);
+    this.boundingBox = new BoundingBox(this.x + 5, this.y, this.animation.frameWidth + 8, this.animation.frameHeight + 15);
     Entity.prototype.update.call(this);
 }
 
@@ -173,7 +173,7 @@ function Hero(game) {
     this.y = 400;
     
     this.boxes = true;
-    this.boundingBox = new BoundingBox(this.x + 5, this.y, this.animation.frameWidth + 10, this.animation.frameHeight + 15);
+    this.boundingBox = new BoundingBox(this.x + 5, this.y, this.animation.frameWidth + 8, this.animation.frameHeight + 15);
     
     Entity.call(this, game, this.x, this.y);
 }
@@ -206,7 +206,7 @@ Hero.prototype.update = function () {
       this.x = this.x + 1.5;
     }
     else this.wright = false;
-    this.boundingBox = new BoundingBox(this.x + 5, this.y, this.animation.frameWidth + 10, this.animation.frameHeight + 15);
+    this.boundingBox = new BoundingBox(this.x + 5, this.y, this.animation.frameWidth + 8, this.animation.frameHeight + 15);
     Entity.prototype.update.call(this);
 }
 
