@@ -89,10 +89,23 @@ BoundingBox.prototype.collide = function (other) {
   
 }
 
-function BoundingCircle(x, y, radius) {
+function ViewingCircle(x, y, radius) {
   this.x = x;
   this.y = y;
   this.radius = radius;
+}
+
+ViewingCircle.prototype.collide = function (other) {
+  //Check the distance from the center of the circle to the enemies four corners
+  var distanceC1 = Math.sqrt(((other.left - this.x) * (other.left - this.x)) + ((other.top - this.y) * (other.top - this.y)));
+  var distanceC2 = Math.sqrt(((other.right - this.x) * (other.right - this.x)) + ((other.top - this.y) * (other.top - this.y)));
+  var distanceC3 = Math.sqrt(((other.left - this.x) * (other.left - this.x)) + ((other.bottom - this.y) * (other.bottom - this.y)));
+  var distanceC4 = Math.sqrt(((other.right - this.x) * (other.right - this.x)) + ((other.bottom - this.y) * (other.bottom - this.y)));
+  
+  if (distanceC1 < this.radius || distanceC2 < this.radius || distanceC3 < this.radius || distanceC4 < this.radius) {
+    return true;
+  }
+  return false;
 }
 
 
@@ -179,7 +192,7 @@ function Hero(game) {
     this.boxes = true;
     this.boundingBox = new BoundingBox(this.x + 5, this.y, this.animation.frameWidth + 8, this.animation.frameHeight + 15);
     
-    this.boundingCircle = new BoundingCircle(this.boundingBox.x + this.boundingBox.width / 2, this.boundingBox.y + this.boundingBox.height / 2, 80);
+    this.viewingCircle = new ViewingCircle(this.boundingBox.x + this.boundingBox.width / 2, this.boundingBox.y + this.boundingBox.height / 2, 200);
     
     Entity.call(this, game, this.x, this.y);
 }
@@ -218,10 +231,15 @@ Hero.prototype.update = function () {
       if(this.boundingBox.collide(enemy.boundingBox)) {
         this.removeFromWorld = true;
       }
+      if(this.viewingCircle.collide(enemy.boundingBox)) {
+        alert("hello");
+      }
     }
     
+    
+    
     this.boundingBox = new BoundingBox(this.x + 5, this.y, this.animation.frameWidth + 8, this.animation.frameHeight + 15);
-    this.boundingCircle = new BoundingCircle(this.boundingBox.x + this.boundingBox.width / 2, this.boundingBox.y + this.boundingBox.height / 2, 80);
+    this.viewingCircle = new ViewingCircle(this.boundingBox.x + this.boundingBox.width / 2, this.boundingBox.y + this.boundingBox.height / 2, 200);
     Entity.prototype.update.call(this);
 }
 
@@ -247,7 +265,7 @@ Hero.prototype.draw = function (ctx) {
       ctx.strokeRect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.width, this.boundingBox.height);
       ctx.strokeStyle = "green";
       ctx.beginPath()
-      ctx.arc(this.boundingCircle.x, this.boundingCircle.y, this.boundingCircle.radius, 0, 2*Math.PI);
+      ctx.arc(this.viewingCircle.x, this.viewingCircle.y, this.viewingCircle.radius, 0, 2*Math.PI);
       ctx.stroke();
     }
     Entity.prototype.draw.call(this);
