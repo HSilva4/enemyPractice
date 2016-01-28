@@ -148,8 +148,10 @@ Goblin.prototype.update = function () {
   this.wright = false;
   //if the goblin is within the viewing circle
   if (this.seesHero) {
+    console.log("goblin sees hero");
     //if the goblin and hero are on the same y axis
     if (this.walkTowardY === this.y) {
+      console.log("same y axis");
       //if the hero is to the left of the goblin
       if (this.walkTowardX < this.x) {
         this.wleft = true;
@@ -161,6 +163,7 @@ Goblin.prototype.update = function () {
       }
       //if the hero is below the goblin
     } else if (this.walkTowardY > this.y) {
+      console.log("hero is below goblin");
       this.wforward = true;
       //if the hero and goblin are on the same x axis
       if (this.walkTowardX === this.x) {
@@ -176,6 +179,7 @@ Goblin.prototype.update = function () {
       }
       //if the hero is above the goblin
     } else {
+      console.log("hero is above goblin");
       this.wbackward = true;
       //if the hero and goblin are on the same x axis
       if (this.walkTowardX === this.x) {
@@ -211,14 +215,14 @@ Goblin.prototype.draw = function (ctx) {
       this.rightAnimation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
     }
     else {
-        this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
+      this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
     }
     if (this.boxes) {
       ctx.strokeStyle = "red";
       ctx.strokeRect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.width, this.boundingBox.height);
     }
 
-    this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
+   // this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
     Entity.prototype.draw.call(this);
 }
 
