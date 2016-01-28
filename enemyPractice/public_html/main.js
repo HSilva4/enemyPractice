@@ -94,27 +94,26 @@ Goblin.prototype.constructor = Goblin;
 
 Goblin.prototype.update = function () {
     
-    Entity.prototype.update.call(this);
 }
 
 Goblin.prototype.draw = function (ctx) {
   
-    if (this.wforward) {
-      this.forwardAnimation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
-    }
-    else if (this.wbackward) {
-      this.backwardAnimation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
-    }
-    else if (this.wleft) {
-      this.leftAnimation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
-    }    
-    else if (this.wright) {
-      this.rightAnimation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
-    }
-    else {
-        this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
-    }
-    Entity.prototype.draw.call(this);
+//    if (this.wforward) {
+//      this.forwardAnimation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
+//    }
+//    else if (this.wbackward) {
+//      this.backwardAnimation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
+//    }
+//    else if (this.wleft) {
+//      this.leftAnimation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
+//    }    
+//    else if (this.wright) {
+//      this.rightAnimation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
+//    }
+//    else {
+//        this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
+//    }
+   // Entity.prototype.draw.call(this);
 }
 
 
