@@ -69,6 +69,55 @@ Background.prototype.draw = function (ctx) {
 //    Entity.prototype.draw.call(this);
 }
 
+function Goblin(game) {
+      this.animation = new Animation(ASSET_MANAGER.getAsset("enemyPractice/public_html/img/sheet2.png"), 94, 128, 33.3, 32, 0.02, 1, true, false);
+    
+    this.forwardAnimation = new Animation(ASSET_MANAGER.getAsset("enemyPractice/public_html/img/sheet2.png"), 94, 128, 33.3, 32, 0.2, 3, true, false);
+    this.backwardAnimation = new Animation(ASSET_MANAGER.getAsset("enemyPractice/public_html/img/sheet2.png"), 94.5, 224, 33.3, 32, 0.2, 3, true, false);
+    this.leftAnimation = new Animation(ASSET_MANAGER.getAsset("enemyPractice/public_html/img/sheet2.png"), 94, 160, 33.3, 32, 0.2, 3, true, false);
+    this.rightAnimation = new Animation(ASSET_MANAGER.getAsset("enemyPractice/public_html/img/sheet2.png"), 94, 192, 33.3, 32, 0.2, 3, true, false);
+    
+    this.wforward = false;
+    this.wbackward = false;
+    this.wleft = false;
+    this.wright = false;
+    
+    this.radius = 100;
+    this.ground = 400;
+    this.x = 200;
+    this.y = 100;
+    Entity.call(this, game, this.x, this.y); 
+}
+
+Goblin.prototype = new Entity();
+Goblin.prototype.constructor = Goblin;
+
+Goblin.prototype.update = function () {
+    
+    Entity.prototype.update.call(this);
+}
+
+Goblin.prototype.draw = function (ctx) {
+  
+    if (this.wforward) {
+      this.forwardAnimation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
+    }
+    else if (this.wbackward) {
+      this.backwardAnimation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
+    }
+    else if (this.wleft) {
+      this.leftAnimation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
+    }    
+    else if (this.wright) {
+      this.rightAnimation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
+    }
+    else {
+        this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1.5);
+    }
+    Entity.prototype.draw.call(this);
+}
+
+
 function Hero(game) {
   
     this.animation = new Animation(ASSET_MANAGER.getAsset("enemyPractice/public_html/img/sheet5.png"), 94, 128, 33.3, 32, 0.02, 1, true, false);
@@ -146,6 +195,7 @@ Hero.prototype.draw = function (ctx) {
 
 var ASSET_MANAGER = new AssetManager();
 
+ASSET_MANAGER.queueDownload("enemyPractice/public_html/img/sheet2.png");
 ASSET_MANAGER.queueDownload("enemyPractice/public_html/img/sheet5.png");
 
 ASSET_MANAGER.downloadAll(function () {
@@ -156,9 +206,11 @@ ASSET_MANAGER.downloadAll(function () {
     var gameEngine = new GameEngine();
     var bg = new Background(gameEngine);
     var hero = new Hero(gameEngine);
+    var goblin = new Goblin(gameEngine);
 
     gameEngine.addEntity(bg);
     gameEngine.addEntity(hero);
+    gameEngine.addEntity(goblin);
  
     gameEngine.init(ctx);
     gameEngine.start();
