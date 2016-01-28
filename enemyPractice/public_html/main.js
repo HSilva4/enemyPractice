@@ -301,6 +301,7 @@ Hero.prototype.update = function () {
         if (enemy.x !== enemy.startingX && enemy.y !== enemy.startingY) {
           enemy.walkTowardX = enemy.startingX;
           enemy.walkTowardY = enemy.startingY;
+          enemy.atStarting = false;
         }
       }
     }
