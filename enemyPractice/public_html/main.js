@@ -196,7 +196,7 @@ Goblin.prototype.update = function () {
     }
   } 
   
-  if (this.startingX === this.x && this.startingY === this.y) {
+  if ((this.startingX < this.x + 1 && this.startingX > this.x - 1) && (this.startingY < this.y + 1 && this.startingY > this.y - 1)) {
     this.atStarting = true;
     this.wforward = false;
     this.wbackward = false;
